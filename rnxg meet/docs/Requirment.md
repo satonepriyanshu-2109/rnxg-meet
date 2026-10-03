@@ -233,3 +233,7 @@ A member should be able to complete attendance with minimal steps.
 
 ### NFR-007 — Scalability
 The API/database design should allow a future Flutter application to use the same backend.
+
+### FR-039 — Member registration and attendance identity
+
+A person shall be able to register with a name, unique email, and password. After registration/sign-in, an authenticated member shall set a unique RNXG Attendance ID linked to their profile. The server shall validate ID format and uniqueness; members cannot change an ID after it is set.

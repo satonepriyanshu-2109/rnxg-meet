@@ -191,3 +191,7 @@ Possible later entities:
 - AttendanceDisputes
 - PushNotificationTokens
 - QRRotationSessions
+
+## Authentication implementation fields
+
+The `users` table stores an Argon2 password hash (never the password), an email with a unique constraint, a nullable unique `attendance_id` assigned during authenticated onboarding, a server-assigned role defaulting to `MEMBER`, an account-active flag, and a creation timestamp. `attendance_id` uses `RNXG-` followed by 4–16 alphanumeric characters. Members can set it only once; it is not editable through the member endpoint.

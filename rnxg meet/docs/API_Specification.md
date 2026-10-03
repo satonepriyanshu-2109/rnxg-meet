@@ -197,3 +197,13 @@ Potential error codes:
 - Rate-limit sensitive endpoints where appropriate.
 - Do not expose password hashes.
 - Do not expose internal database errors to users.
+
+## Authentication implementation (MVP slice)
+
+- `POST /api/auth/register` accepts name, email, and a password (10–128 characters), creates a `MEMBER` account, and signs it in.
+- `POST /api/auth/login` accepts email and password. Failures use a generic credential error.
+- `GET /api/auth/me` returns the active account, including its role and optional Attendance ID.
+- `POST /api/auth/attendance-id` lets an authenticated member set their ID once, matching `RNXG-` plus 4–16 letters/numbers. The database enforces uniqueness.
+- `POST /api/auth/logout` clears the session cookie.
+
+Sessions use a 12-hour signed HttpOnly cookie; a bearer token can be used by future non-browser clients. Production must set a strong `AUTH_SECRET` and enable secure cookies over HTTPS. Self-registration always assigns the `MEMBER` role; role elevation remains an administrative operation.
