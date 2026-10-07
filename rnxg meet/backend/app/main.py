@@ -19,7 +19,8 @@ COOKIE_SECURE = os.getenv("COOKIE_SECURE", "false").lower() == "true"
 FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {})
 SessionLocal = sessionmaker(bind=engine, expire_on_commit=False)
-password_hash = PasswordHash.recommended()\ndummy_password_hash = password_hash.hash("not-a-real-password")
+password_hash = PasswordHash.recommended()
+dummy_password_hash = password_hash.hash("not-a-real-password")
 bearer_scheme = HTTPBearer(auto_error=False)
 
 class Base(DeclarativeBase):
@@ -133,4 +134,3 @@ def create_attendance_id(payload: AttendanceIdInput, user: User = Depends(authen
         raise HTTPException(status_code=409, detail="That RNXG Attendance ID is already in use. Try another.")
     db.refresh(user)
     return user
-
